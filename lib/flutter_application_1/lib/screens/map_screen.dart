@@ -88,9 +88,11 @@ class _MapScreenState extends State<MapScreen> {
     return TextField(
       controller: controller,
       enabled: enabled,
+      style: const TextStyle(color: Colors.black87),
       decoration: InputDecoration(
-        prefixIcon: Icon(icon),
+        prefixIcon: Icon(icon, color: Colors.black54),
         hintText: hint,
+        hintStyle: const TextStyle(color: Colors.black45),
         filled: true,
         fillColor: Colors.grey[100],
         border: OutlineInputBorder(

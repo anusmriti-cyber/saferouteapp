@@ -362,13 +362,14 @@ class HomeScreen extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 40,
-          height: 40,
+          width: 44,
+          height: 44,
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(10),
+            color: color.withOpacity(0.15),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: color.withOpacity(0.3)),
           ),
-          child: Icon(icon, color: color, size: 20),
+          child: Icon(icon, color: color, size: 22),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -378,15 +379,15 @@ class HomeScreen extends StatelessWidget {
               Text(
                 title,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black87,
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 subtitle,
-                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                style: const TextStyle(fontSize: 13, color: Colors.white54),
               ),
             ],
           ),
@@ -450,11 +451,31 @@ class HomeScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
+          backgroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(24),
           ),
           child: Container(
             padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF1A0400), Color(0xFF0A0A0A)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(
+                color: const Color(0xFFE8340A).withOpacity(0.35),
+                width: 1.2,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFFE8340A).withOpacity(0.18),
+                  blurRadius: 24,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -466,12 +487,15 @@ class HomeScreen extends StatelessWidget {
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF4A5DFF).withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
+                        color: const Color(0xFFE8340A).withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: const Color(0xFFE8340A).withOpacity(0.4),
+                        ),
                       ),
                       child: const Icon(
                         Icons.info,
-                        color: Color(0xFF4A5DFF),
+                        color: Color(0xFFE8340A),
                         size: 28,
                       ),
                     ),
@@ -482,24 +506,40 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          letterSpacing: 0.5,
                         ),
                       ),
                     ),
                     IconButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.close),
+                      icon: const Icon(Icons.close, color: Colors.white54),
                     ),
                   ],
                 ),
                 const SizedBox(height: 20),
 
+                // Accent line
+                Container(
+                  height: 1,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        const Color(0xFFE8340A).withOpacity(0.7),
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+
                 // Content
                 const Text(
                   "Empowering Women's Safety",
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF4A5DFF),
+                    color: Color(0xFFE8340A),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -507,8 +547,8 @@ class HomeScreen extends StatelessWidget {
                   "SafeRoute is an AI-powered navigation app designed specifically for women's safety. Our intelligent system analyzes multiple safety factors including lighting conditions, crowd density, transport availability, and historical safety data to provide the safest routes for your journeys.",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black87,
-                    height: 1.5,
+                    color: Colors.white70,
+                    height: 1.6,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -516,8 +556,8 @@ class HomeScreen extends StatelessWidget {
                   "Features include real-time SafeScore calculations, emergency SOS alerts with live location sharing, public transport frequency monitoring, and comprehensive safety analytics.",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black87,
-                    height: 1.5,
+                    color: Colors.white70,
+                    height: 1.6,
                   ),
                 ),
 
@@ -529,18 +569,20 @@ class HomeScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4A5DFF),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      backgroundColor: const Color(0xFFE8340A),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(14),
                       ),
+                      elevation: 0,
                     ),
                     child: const Text(
                       "Got it!",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.5,
                       ),
                     ),
                   ),
@@ -559,11 +601,31 @@ class HomeScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
+          backgroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(24),
           ),
           child: Container(
             padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF1A0400), Color(0xFF0A0A0A)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(
+                color: const Color(0xFFE8340A).withOpacity(0.35),
+                width: 1.2,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFFE8340A).withOpacity(0.18),
+                  blurRadius: 24,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -575,12 +637,15 @@ class HomeScreen extends StatelessWidget {
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF00B894).withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
+                        color: const Color(0xFFE8340A).withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: const Color(0xFFE8340A).withOpacity(0.4),
+                        ),
                       ),
                       child: const Icon(
                         Icons.contact_mail,
-                        color: Color(0xFF00B894),
+                        color: Color(0xFFE8340A),
                         size: 28,
                       ),
                     ),
@@ -591,37 +656,59 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          letterSpacing: 0.5,
                         ),
                       ),
                     ),
                     IconButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.close),
+                      icon: const Icon(Icons.close, color: Colors.white54),
                     ),
                   ],
+                ),
+                const SizedBox(height: 16),
+
+                // Accent line
+                Container(
+                  height: 1,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        const Color(0xFFE8340A).withOpacity(0.7),
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 20),
 
                 // Contact items
                 _contactItem(
-                  icon: Icons.email,
+                  icon: Icons.email_outlined,
                   title: "Email Support",
                   subtitle: "support@saferoute.com",
-                  color: const Color(0xFF4A5DFF),
+                  color: const Color(0xFFE8340A),
                 ),
-                const Divider(height: 20),
+                Divider(
+                  height: 24,
+                  color: Colors.white.withOpacity(0.08),
+                ),
                 _contactItem(
-                  icon: Icons.phone,
+                  icon: Icons.phone_outlined,
                   title: "Emergency Helpline",
                   subtitle: "+1 (555) 123-SAFE",
-                  color: const Color(0xFF00B894),
+                  color: const Color(0xFF00E676),
                 ),
-                const Divider(height: 20),
+                Divider(
+                  height: 24,
+                  color: Colors.white.withOpacity(0.08),
+                ),
                 _contactItem(
-                  icon: Icons.location_on,
+                  icon: Icons.location_on_outlined,
                   title: "Office Address",
                   subtitle: "123 Safety Street, Secure City, SC 12345",
-                  color: const Color(0xFFFF6B9D),
+                  color: const Color(0xFFFFB03B),
                 ),
 
                 const SizedBox(height: 24),
@@ -632,18 +719,20 @@ class HomeScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF00B894),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      backgroundColor: const Color(0xFFE8340A),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(14),
                       ),
+                      elevation: 0,
                     ),
                     child: const Text(
                       "Close",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.5,
                       ),
                     ),
                   ),
