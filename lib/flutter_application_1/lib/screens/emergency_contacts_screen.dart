@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../models/emergency_contact_model.dart';
 import '../services/emergency_contact_service.dart';
 
@@ -139,8 +140,11 @@ class _EmergencyContactsScreenState extends State<EmergencyContactsScreen> {
         subtitle: Text("${contact.phone} • ${contact.relationship}", style: const TextStyle(color: Color(0xFF9E9E9E))),
         trailing: IconButton(
           icon: const Icon(Icons.call, color: Color(0xFF00E676)),
-          onPressed: () {
-            // In real app, launch dialer
+          onPressed: () async {
+            final Uri url = Uri(scheme: 'tel', path: contact.phone);
+            if (await canLaunchUrl(url)) {
+              await launchUrl(url);
+            }
           },
         ),
         onLongPress: isOfficial ? null : () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/hazard_report_model.dart';
+import '../services/hazard_service.dart';
 
 class HazardReportScreen extends StatefulWidget {
   const HazardReportScreen({super.key});
@@ -12,14 +13,39 @@ class _HazardReportScreenState extends State<HazardReportScreen> {
   final _formKey = GlobalKey<FormState>();
   HazardType _selectedType = HazardType.other;
   final _descriptionController = TextEditingController();
+  bool _isLoading = false;
 
-  void _submitReport() {
+  Future<void> _submitReport() async {
     if (_formKey.currentState!.validate()) {
-      // Mock submission logic
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Hazard report submitted successfully!")),
-      );
-      Navigator.pop(context);
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        await HazardService.submitReport(
+          type: _selectedType,
+          description: _descriptionController.text.trim(),
+        );
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Hazard report submitted successfully!")),
+          );
+          Navigator.pop(context);
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Error submitting report: $e")),
+          );
+        }
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }
     }
   }
 
@@ -65,8 +91,10 @@ class _HazardReportScreenState extends State<HazardReportScreen> {
               ),
               const SizedBox(height: 40),
               ElevatedButton(
-                onPressed: _submitReport,
-                child: const Text("SUBMIT REPORT"),
+                onPressed: _isLoading ? null : _submitReport,
+                child: _isLoading 
+                    ? const CircularProgressIndicator()
+                    : const Text("SUBMIT REPORT"),
               ),
             ],
           ),

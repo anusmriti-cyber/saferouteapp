@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum HazardType {
   crime,
@@ -49,6 +50,25 @@ class HazardReport {
     );
   }
 
+  factory HazardReport.fromMap(Map<String, dynamic> map, String documentId) {
+    return HazardReport(
+      id: documentId,
+      reporterId: map['reporterId'] ?? '',
+      type: HazardType.values.firstWhere(
+        (e) => e.toString().split('.').last == map['type'],
+        orElse: () => HazardType.other,
+      ),
+      description: map['description'] ?? '',
+      latitude: (map['latitude'] ?? 0.0).toDouble(),
+      longitude: (map['longitude'] ?? 0.0).toDouble(),
+      timestamp: map['timestamp'] != null 
+          ? (map['timestamp'] as Timestamp).toDate() 
+          : DateTime.now(),
+      imageUrl: map['imageUrl'],
+      upvotes: map['upvotes'] ?? 0,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -58,6 +78,19 @@ class HazardReport {
       'latitude': latitude,
       'longitude': longitude,
       'timestamp': timestamp.toIso8601String(),
+      'imageUrl': imageUrl,
+      'upvotes': upvotes,
+    };
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'reporterId': reporterId,
+      'type': type.toString().split('.').last,
+      'description': description,
+      'latitude': latitude,
+      'longitude': longitude,
+      'timestamp': Timestamp.fromDate(timestamp),
       'imageUrl': imageUrl,
       'upvotes': upvotes,
     };

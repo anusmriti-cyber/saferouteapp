@@ -6,6 +6,7 @@ import 'emergency_contacts_screen.dart';
 import '../services/auth_service.dart';
 import '../widgets/safe_score_gauge.dart';
 import '../widgets/sos_hold_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -358,19 +359,23 @@ class HomeScreen extends StatelessWidget {
     required String title,
     required String subtitle,
     required Color color,
+    VoidCallback? onTap,
   }) {
-    return Row(
-      children: [
-        Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.15),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: color.withOpacity(0.3)),
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Row(
+        children: [
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: color.withOpacity(0.3)),
+            ),
+            child: Icon(icon, color: color, size: 22),
           ),
-          child: Icon(icon, color: color, size: 22),
-        ),
         const SizedBox(width: 16),
         Expanded(
           child: Column(
@@ -393,8 +398,9 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
 
   // 🔹 FOOTER ITEM WIDGET
   Widget _footerItem({
@@ -687,8 +693,14 @@ class HomeScreen extends StatelessWidget {
                 _contactItem(
                   icon: Icons.email_outlined,
                   title: "Email Support",
-                  subtitle: "support@saferoute.com",
+                  subtitle: "roninplays007@gmail.com",
                   color: const Color(0xFFE8340A),
+                  onTap: () async {
+                    final Uri url = Uri(scheme: 'mailto', path: 'roninplays007@gmail.com');
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url);
+                    }
+                  },
                 ),
                 Divider(
                   height: 24,
@@ -697,8 +709,14 @@ class HomeScreen extends StatelessWidget {
                 _contactItem(
                   icon: Icons.phone_outlined,
                   title: "Emergency Helpline",
-                  subtitle: "+1 (555) 123-SAFE",
+                  subtitle: "8274819946",
                   color: const Color(0xFF00E676),
+                  onTap: () async {
+                    final Uri url = Uri(scheme: 'tel', path: '8274819946');
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url);
+                    }
+                  },
                 ),
                 Divider(
                   height: 24,
@@ -707,7 +725,7 @@ class HomeScreen extends StatelessWidget {
                 _contactItem(
                   icon: Icons.location_on_outlined,
                   title: "Office Address",
-                  subtitle: "123 Safety Street, Secure City, SC 12345",
+                  subtitle: "Sector V, Kolkata, West Bengal, India",
                   color: const Color(0xFFFFB03B),
                 ),
 
